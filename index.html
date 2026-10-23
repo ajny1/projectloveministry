@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Project Love Ministries: showing God's love in practical ways, one neighbor at a time.">
+<title>Project Love Ministries</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: logo-led hero (wordmark + spinning globe), then calm bands for mission, ministries, gatherings, contact, testimonies. Palette taken from the ministry logo. */
+:root {
+  --bg: #f6f8fc;
+  --surface: #ffffff;
+  --ink: #1e2a44;
+  --muted: #56617a;
+  --accent: #c2185b;
+  --accent-ink: #ffffff;
+  --sky: #e4eef7;
+  --line: #dbe2ee;
+  --logo-ink: #1e2a44;
+  --display: "Gelasio", Georgia, "Times New Roman", serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --caps: "Figtree", Arial, Helvetica, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111827; --surface: #18213a; --ink: #eef2f9; --muted: #a6b1c8;
+  --accent: #f06292; --accent-ink: #1a0b12; --sky: #1b2742; --line: #2a3654; --logo-ink: #eef2f9; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111827; --surface: #18213a; --ink: #eef2f9; --muted: #a6b1c8;
+  --accent: #f06292; --accent-ink: #1a0b12; --sky: #1b2742; --line: #2a3654; --logo-ink: #eef2f9; color-scheme: dark }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; line-height: 1.15; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.eyebrow { font-family: var(--caps); font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+header.site { border-bottom: 1px solid var(--line); background: var(--surface); }
+header.site .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.brand canvas { width: 48px; height: 48px; display: block; }
+.brand-name { display: grid; line-height: 1; }
+.brand-name b { font-family: var(--display); font-weight: 700; font-size: 21px; }
+.brand-name small { font-family: var(--caps); font-weight: 700; font-size: 10px; letter-spacing: .38em; margin-top: 5px; }
+nav ul { display: flex; flex-wrap: wrap; gap: 6px 22px; list-style: none; margin: 0; padding: 0; }
+nav a { color: var(--muted); text-decoration: none; font-weight: 500; font-size: 15px; }
+nav a:hover { color: var(--ink); }
+
+.hero { background: linear-gradient(180deg, var(--sky), var(--bg)); }
+.hero .wrap { padding-block: 48px 56px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px 40px; align-items: center; }
+.hero-copy { display: grid; gap: 20px; min-width: 0; }
+.lockup { display: grid; gap: 14px; }
+.lockup h1 { font-size: clamp(44px, 7vw, 72px); line-height: 1.02; letter-spacing: -.02em; }
+.lockup .bar { width: 64px; height: 5px; border-radius: 3px; background: var(--accent); }
+.lockup .min { font-family: var(--caps); font-weight: 700; font-size: clamp(14px, 1.6vw, 18px); letter-spacing: .5em; }
+.hero p.lead { font-size: 19px; color: var(--muted); max-width: 52ch; }
+.globe { min-width: 0; display: flex; justify-content: center; }
+.globe canvas { width: 100%; max-width: 480px; height: auto; display: block; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-block; padding: 12px 22px; border-radius: 999px; font-weight: 600; text-decoration: none; font-size: 16px; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { border: 1.5px solid var(--line); color: var(--ink); background: var(--surface); }
+@media (max-width: 760px) {
+  .hero .wrap { grid-template-columns: 1fr; padding-block: 28px 48px; }
+  .globe { order: -1; }
+  .globe canvas { max-width: 340px; }
+}
+
+section.band .wrap { padding-block: 64px; display: grid; gap: 28px; }
+section.band + section.band { border-top: 1px solid var(--line); }
+.band h2 { font-size: clamp(28px, 4vw, 38px); }
+.intro { display: grid; gap: 10px; max-width: 62ch; }
+.intro p { color: var(--muted); }
+.verse { font-family: var(--display); font-size: 19px; border-left: 3px solid var(--accent); padding-left: 16px; margin: 4px 0 0; max-width: 54ch; }
+.verse cite { display: block; font-family: var(--body); font-style: normal; font-size: 14px; color: var(--muted); margin-top: 4px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card h3 { font-size: 22px; }
+.card p { color: var(--muted); font-size: 16px; }
+
+.times { display: grid; border-top: 1px solid var(--line); }
+.times div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.times strong { font-weight: 600; }
+.times span { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; align-items: start; }
+.contact dl { margin: 0; display: grid; gap: 14px; }
+.contact dt { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.contact dd { margin: 2px 0 0; }
+form { display: grid; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 24px; }
+label { font-size: 14px; font-weight: 600; display: grid; gap: 6px; }
+input, textarea { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); }
+textarea { min-height: 110px; resize: vertical; }
+form button { justify-self: start; border: 0; cursor: pointer; }
+#form-note { font-size: 14px; color: var(--muted); }
+
+.quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.quote { margin: 0; background: var(--sky); border-radius: 14px; padding: 24px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.quote p { font-family: var(--display); font-size: 18px; line-height: 1.5; }
+.quote figcaption { font-size: 14px; color: var(--muted); }
+.quote figcaption strong { color: var(--ink); font-weight: 600; }
+
+footer { background: var(--ink); color: var(--bg); }
+footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 14px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+</head>
+<body>
+
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Project Love Ministries, home">
+      <canvas id="logo-mini" width="96" height="96" aria-hidden="true"></canvas>
+      <span class="brand-name"><b>Project Love</b><small>MINISTRIES</small></span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#serve">What we do</a></li>
+        <li><a href="#gather">Gatherings</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#testimonies">Testimonies</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="lockup">
+          <h1>Project<br>Love</h1>
+          <div class="bar"></div>
+          <div class="min">MINISTRIES</div>
+        </div>
+        <p class="lead">Showing God's love in practical ways, one neighbor at a time. We serve families, feed the hungry, and walk alongside people in every season of life. Everyone is welcome here.</p>
+        <div class="actions">
+          <a class="btn primary" href="#contact">Get involved</a>
+          <a class="btn ghost" href="#gather">Join us this week</a>
+        </div>
+      </div>
+      <div class="globe">
+        <canvas id="logo" width="560" height="560" role="img" aria-label="Spinning globe with the words For God so loved the world that he gave his only Son, John 3:16, circling it like a ring"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="about">
+    <div class="wrap">
+      <div class="intro">
+        <span class="eyebrow">Our mission</span>
+        <h2>Love God. Love people. Put it into action.</h2>
+        <p>We believe faith is lived out in how we care for others. Project Love brings people together to pray, to serve, and to meet real needs in our community and around the world, so that every person we meet knows they are seen and loved.</p>
+        <blockquote class="verse">"For God so loved the world that he gave his only Son, that whoever believes in him should not perish but have everlasting life."<cite>John 3:16</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="serve">
+    <div class="wrap">
+      <div class="intro">
+        <span class="eyebrow">What we do</span>
+        <h2>Ways we serve</h2>
+      </div>
+      <div class="grid">
+        <article class="card"><h3>Outreach &amp; meals</h3><p>Regular food drives and community meals for families and individuals who need a hand.</p></article>
+        <article class="card"><h3>Prayer &amp; care</h3><p>Prayer support, hospital and home visits, and a caring presence through hard seasons.</p></article>
+        <article class="card"><h3>Youth &amp; families</h3><p>Programs that help young people grow in faith, character, and friendship.</p></article>
+        <article class="card"><h3>Missions</h3><p>Partnering with churches and ministries locally and abroad to share hope.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="gather">
+    <div class="wrap">
+      <div class="intro">
+        <span class="eyebrow">Gatherings</span>
+        <h2>Come as you are</h2>
+        <p>Times and locations below are placeholders until we confirm the real schedule.</p>
+      </div>
+      <div class="times">
+        <div><strong>Sunday worship</strong><span>Sundays · 10:30 AM</span></div>
+        <div><strong>Prayer night</strong><span>Wednesdays · 7:00 PM</span></div>
+        <div><strong>Community outreach</strong><span>First Saturday each month · 9:00 AM</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="contact">
+    <div class="wrap">
+      <div class="intro">
+        <span class="eyebrow">Contact</span>
+        <h2>We'd love to hear from you</h2>
+        <p>Have a prayer request, want to volunteer, or just want to say hello? Reach out anytime.</p>
+      </div>
+      <div class="contact">
+        <dl>
+          <div><dt>Email</dt><dd><a href="mailto:projectlovenyc@gmail.com">projectlovenyc@gmail.com</a></dd></div>
+        </dl>
+        <form id="contact-form">
+          <label for="name">Your name<input id="name" name="name" autocomplete="name" required></label>
+          <label for="email">Email<input id="email" name="email" type="email" autocomplete="email" required></label>
+          <label for="message">Message or prayer request<textarea id="message" name="message" required></textarea></label>
+          <button class="btn primary" type="submit">Send message</button>
+          <p id="form-note" hidden>Thanks! This is a preview, so messages aren't delivered yet. We'll connect this form once the site is live.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="testimonies">
+    <div class="wrap">
+      <div class="intro">
+        <span class="eyebrow">Testimonies</span>
+        <h2>What God is doing through Project Love</h2>
+        <p>Stories from our community are coming soon. Has God moved in your life through Project Love? We'd love to hear it. Write to us at projectlovenyc@gmail.com.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Project Love Ministries</span>
+    <span>www.projectloveministry.com</span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  document.getElementById('form-note').hidden = false;
+});
+</script>
+<script>
+// Continent outlines (Natural Earth 110m via world-atlas, simplified). Delta-encoded half-degree integers.
+const GEO = {"NA":"-282,139 9,-1 4,1 3,0 6,1 2,0 2,1 4,-2 3,1 0,-1 4,1 17,-3 -3,-1 4,-1 7,1 2,-1 2,1 -2,1 6,1 3,-2 3,0 3,-1 6,1 0,1 8,-1 1,2 -5,2 0,2 3,2 4,-1 3,-3 -2,-1 4,0 0,-2 3,2 2,-2 -1,-1 2,-2 4,4 0,2 6,-1 2,-1 -1,-2 1,-2 -4,-1 -5,0 -3,-3 -2,-2 -3,0 -2,-2 -2,0 -4,-4 -1,-4 3,0 1,-4 3,1 4,-1 3,-2 5,-1 5,-1 0,-1 2,-5 3,-2 2,1 1,2 -1,3 -2,1 4,1 3,3 -2,3 -2,2 2,2 -1,5 1,0 6,-1 1,1 5,-3 4,0 0,-4 4,-2 3,2 3,3 6,-7 -1,-1 5,-3 4,-1 1,-1 2,-1 1,-3 -3,-1 -4,-1 -2,-2 -3,0 -5,1 -5,-1 -4,-2 -5,-4 1,0 4,3 4,1 3,0 2,-1 -2,-1 1,-4 3,-1 3,1 2,2 1,-2 -2,-1 -5,-2 -4,-2 -1,0 0,2 3,2 -5,-1 -6,-3 -2,-1 2,-3 -6,-1 2,0 -4,-1 0,-2 -3,-3 -2,1 2,-6 -2,-1 -4,-2 -6,-5 0,-2 3,-7 -1,-4 -1,0 -4,6 1,1 -2,3 -3,-1 -3,2 -6,-1 0,-2 -3,0 -1,1 -3,1 -3,-1 -4,-2 -2,-2 1,-3 -1,-3 -1,-4 2,-4 2,-3 3,-2 6,2 1,1 1,3 4,1 3,0 -2,-6 -1,0 0,-4 -1,-1 2,-1 4,1 3,0 3,-2 -2,-7 1,-1 2,-3 2,-1 4,1 3,-1 1,-1 -1,-3 0,3 -2,1 -3,-2 1,-1 -6,1 -1,2 -5,2 1,2 -4,4 -1,1 -1,-1 -3,1 -4,2 -3,2 -2,1 -4,-1 -9,3 -2,2 -3,1 -3,2 -1,2 0,2 -1,3 -5,4 -2,2 0,1 -2,1 -3,4 -2,4 -4,2 1,-4 3,-3 3,-4 2,-3 2,-3 -2,0 -3,2 -1,3 -4,2 1,3 -3,2 -3,6 -3,3 -4,1 -4,6 -2,3 -2,3 1,3 -1,2 1,5 -1,6 3,-1 1,-1 -1,3 -5,3 -4,1 -1,3 -2,1 -1,1 -2,2 0,1 -3,1 0,2 -3,1 -1,2 -5,0 -3,1 -4,2 -5,1 -3,0 -6,2 -2,-1 0,-1 -7,-2 0,3 -5,-2 1,-1 -1,-2 -5,-1 -4,-3 -4,-1 -5,-2 -4,0 6,3 3,0 6,3 1,3 -4,-1 -3,1 -3,-1 0,2 -4,1 -3,1 -1,2 3,3 3,0 4,2 -1,1 1,1 -8,-1 -3,0 -3,2 7,2 1,-1 5,0 -8,4 -3,1 2,1 3,0 3,1 2,2 11,2 8,-2 6,0 9,-1 3,0 5,-1|-168,125 2,1 2,0 -2,-2 -2,1|-160,146 -2,1 1,1 5,-1 3,-1 -7,0|-187,150 -1,-1 -6,1 4,1 3,-1|-188,155 -4,0 3,1 1,-1|-194,158 3,-1 -4,-1 -2,2 3,0|-176,149 -9,1 -1,2 -2,1 -6,1 1,0 6,0 4,0 1,-2 4,-1 5,0 3,0 8,0 2,-1 -4,-1 -2,0 -10,0|-223,156 3,0 -4,-1 -3,0 4,1|-222,158 3,-1 -6,0 3,1|-111,103 -3,-3 7,-2 2,-3 -1,-2 -2,1 0,2 -3,-1 -2,0 -6,0 1,2 1,1 2,3 3,2 1,0|-168,130 5,-1 0,-1 3,-1 -2,0 -4,1 -5,-2 -2,2 1,3 4,-1|-158,145 2,1 8,-2 0,-1 4,0 2,-1 4,-1 4,-3 -4,-1 8,-1 3,-2 3,0 0,-2 -4,-2 -5,3 -3,0 0,-2 5,-2 2,-2 -1,-2 -8,2 5,-2 1,-1 -6,1 -6,2 -6,2 -5,-1 -2,1 1,2 8,0 0,2 3,2 -2,1 -7,2 2,0 -3,2 -3,0 -5,-1 -7,1 -7,1 -2,1 2,0 -3,0 0,2 1,2 2,1 5,1 -1,-2 1,-1 2,2 5,1 4,-3 -1,-1 4,1|-189,148 8,0 -3,-2 -2,0 -3,-2 -2,0 -1,2 1,2 2,0|-246,152 8,3 6,0 -1,-1 -7,-2 -6,0|-265,108 2,0 -1,-2 1,-2 -3,3 1,1|-211,159 9,-1 3,-2 -7,1 -4,0 2,0 -3,2|-247,97 -4,1 -3,2 -2,0 -1,2 5,-1 5,-4|-243,149 8,-1 4,-1 -7,-2 -3,-2 -5,-1 -1,1 -5,1 4,3 -2,2 7,0|-216,152 4,0 -1,-2 -6,0 -5,-1 -4,0 4,1 -9,0 -2,0 4,3 6,-1 3,-1 4,0 -3,2 4,0 1,-1|-213,146 2,-1 2,-3 7,-2 0,-1 -3,0 0,-1 -7,0 -6,0 -9,-1 -1,1 -4,0 -3,2 10,1 -4,0 -7,0 -1,1 5,1 -7,0 3,2 6,2 1,-2 4,1 3,-1 2,1 2,-1 2,-2 1,1 -2,2 4,0|-201,145 -2,2 2,1 6,0 -1,-2 3,-1 0,-2 -4,0 -8,2 0,1 4,-1|-213,147 4,0 -2,-1 -2,1|-197,153 2,0 -1,-3 -6,0 0,1 -3,0 0,2 8,0|-192,161 7,2 3,-2 6,0 4,-2 -6,-2 -8,0 -2,1 2,1 -4,0 -3,1 1,1|-183,164 9,1 3,0 5,0 1,1 6,0 8,0 5,0 14,0 8,-1 -11,-2 4,0 -8,-2 -3,-1 -6,-1 -6,0 3,-2 -5,-1 -3,-2 3,0 -5,-2 -5,1 -6,0 -7,0 0,1 3,0 -1,2 7,-1 -3,1 -3,1 5,1 1,1 -4,2 7,-1 3,1 -11,0 -4,1 -4,2|-150,135 -4,-1 0,2 4,0 0,-1|-193,139 0,-1 -4,0 -3,1 4,1 3,-1|-129,100 3,-1 1,-1 -4,2|-128,94 1,-1 3,0 -2,-1 -2,1 0,1|-311,40 1,-1 -2,-1 1,2|-333,121 1,-1 -3,0 2,1|-306,116 2,-1 -4,-2 -1,2 3,1|-343,128 6,-1 -2,-1 -5,1 1,1|-143,36 -4,0 -2,1 4,0 -1,3 3,-1 1,1 5,-3 -6,-1|-156,54 2,-1 0,-1 -2,2|-156,50 1,-1 -1,-2 0,3|-94,165 7,1 7,0 3,1 7,0 16,0 12,-2 -3,0 -19,-1 1,0 7,0 6,0 4,0 2,-1 -2,-1 5,1 9,1 6,-1 2,0 -11,-3 -4,-2 0,-3 2,-1 -6,-1 3,-1 1,-2 -2,0 2,-1 -4,-1 1,-1 -5,0 2,-3 -4,1 5,-2 0,-2 -3,0 -4,2 1,-1 -3,-2 8,0 -10,-3 -9,-1 -4,-3 -5,-1 -7,-1 -1,-1 -1,-3 -4,-2 1,-1 -2,-4 -3,0 -3,2 -4,0 -3,3 -3,2 -2,3 -2,2 0,2 -1,0 2,3 3,0 1,3 -5,-1 -2,0 0,3 6,-1 -5,2 -4,0 3,2 -8,6 -6,1 -4,0 -10,0 -6,2 9,1 -8,0 -5,1 1,1 15,2 0,1 -5,0 2,1 7,1 3,1 -1,1 11,0 6,0 2,0 5,1 12,-2 -5,1 0,1|-133,37 1,-1 -2,0 1,1|-155,37 3,-1 -2,-1 -3,1 2,1|-165,46 4,0 2,-1 2,0 4,-3 5,-1 -3,-1 -5,0 2,1 -2,0 -1,2 -7,1 -2,1 -2,-1 -2,0 2,1 3,1|-123,22 1,-2 -2,0 1,2","SA":"-137,-105 1,-3 6,-1 -1,-1 -3,0 -2,-1 -6,1 -5,2 -2,2 7,-2 1,2 4,1|-117,-68 0,-1 3,-2 0,-3 -1,-2 -3,-1 -7,-1 1,-3 -4,-1 -2,0 0,-2 3,-1 -3,-2 -1,-3 -2,0 -2,-3 4,-1 -1,-2 -2,-1 -2,-3 -2,-1 1,-4 -5,-1 0,-2 -3,1 -5,2 -1,4 0,4 1,2 2,1 -3,1 2,1 0,4 3,-1 1,4 -2,1 0,-3 -2,1 2,6 1,1 -1,5 1,0 3,9 0,3 0,4 1,3 2,12 -1,6 -2,2 -4,2 -5,4 -1,2 -1,3 -6,10 -3,2 0,3 2,2 1,2 -2,1 2,6 2,1 1,2 3,3 -2,6 1,3 4,2 0,2 3,2 1,-1 3,3 1,-1 -1,-1 1,-5 1,2 -1,2 5,1 2,-2 4,0 2,-1 1,1 5,0 -1,-1 3,-1 1,-2 1,0 2,-1 4,-4 4,0 2,0 -1,-2 1,-3 -1,-2 2,-1 2,1 2,3 2,-4 1,-2 -1,-2 4,0 0,-2 1,1 6,-2 1,-2 2,0 4,-1 3,0 3,-1 3,-3 4,-1 1,-4 -1,-3 -4,-4 -4,-6 0,-3 -2,-8 -2,-3 0,-2 -2,-2 -5,-1 -4,-1 -4,-4 -1,-5 -1,-1 -2,-4 -4,-2 -2,-4 -3,-2 -6,1 -1,1|-122,-104 2,1 3,1 2,-1 -4,-1 -2,-1 -1,1","EU":"30,159 4,1 9,-2 -5,-1 -3,-2 -1,-1 -2,0 -4,1 1,0 -3,1 -4,2 -1,1 5,1 4,-1|48,132 -4,-1 -2,-1 1,-1 -7,-4 -2,-2 4,-3 -2,-2 -2,-1 -2,-5 -3,0 -1,-1 -2,0 -1,2 -3,5 -1,1 -4,-2 -3,-1 -3,1 -1,7 2,1 5,2 4,2 9,7 8,4 5,1 3,-1 3,2 7,0 7,-1 -3,-1 2,-1 -5,-1 0,-1 3,-2 -2,-1 2,-2 -1,-2 2,-2 -1,-1 3,-1 -1,-1 -6,-4 -3,0 -7,-1 -3,1 0,2 -1,2 3,3 6,2 -3,2|55,160 -3,-1 -6,0 -6,0 -5,2 6,0 3,0 2,0 9,-1|49,156 -4,-1 -4,0 1,2 4,0 3,-1|-103,8 -2,-3 -2,-1 -2,1 1,2 -1,3 1,2 2,-1 3,-3|20,110 2,-2 3,1 3,-1 7,2 4,-1 6,0 1,1 -3,0 -1,2 1,3 2,1 2,-2 1,0 1,2 -2,2 5,1 4,0 -1,-2 0,-2 1,-3 6,-1 0,-1 3,-3 -2,-1 1,-2 4,1 3,-4 9,-2 -1,-3 -1,0 -2,-2 -4,-1 -2,-2 -3,1 -6,1 -2,-2 -1,-1 -1,-3 -2,-2 1,-1 -4,0 0,-2 -5,-1 2,-1 -2,0 -1,1 0,-3 2,-2 -2,-1 0,-2 -3,1 -1,3 -2,2 -1,2 0,3 -2,1 -5,2 -2,3 -3,1 1,0 -3,0 0,-3 3,-2 4,-3 5,-2 0,-1 -3,1 -1,-1 1,-1 -2,-3 0,2 -1,2 -4,2 -1,1 -5,3 -1,2 -2,1 -3,-2 -2,-1 -4,1 -3,-1 0,-1 -2,-3 -2,0 -3,-3 1,-2 -1,-2 -3,-2 -5,0 -2,-1 -2,2 -2,0 -3,0 0,3 -1,0 1,5 0,2 -1,2 3,1 7,0 5,0 1,1 1,4 -4,3 -3,1 0,1 2,1 4,-1 -1,3 2,-1 5,1 0,2 2,0 2,1 2,3 5,1 4,1 -1,2 -1,3 1,1 4,1 0,-2 1,0 -3,-2 1,-1|17,85 2,1 -1,-3 -1,2|53,71 -4,-1 -2,1 6,0|-12,108 0,-2 -2,-1 -3,-2 -3,1 2,2 -1,2 4,2 4,-1 -1,-1|30,76 1,0 -1,-3 -5,2 0,1 5,0|17,82 3,-1 -1,-3 -2,0 -1,4 1,0|25,112 -1,-2 -2,2 3,0|-6,107 -1,2 -3,1 0,2 -1,-1 -1,3 2,3 4,0 -2,-2 4,0 -2,-3 2,0 2,-3 1,0 2,-3 2,-1 -1,-1 1,-1 -2,-1 -3,0 -5,-2 -5,0 3,2 -2,2 3,1 -1,2 3,0|-29,133 0,-1 2,-2 -3,-1 -7,-2 -9,1 2,1 -4,1 4,1 -5,0 2,2 3,0 3,-2 3,2 2,-1 4,1 3,0|65,70 4,1 -1,-1 -2,-1 -1,1","AF":"78,-9 0,-4 1,-1 -1,-3 3,-4 1,-8 -3,-4 -4,-2 -5,-5 -1,-1 2,-3 0,-3 -1,-2 -5,-2 1,-2 -1,-4 -5,-5 -4,-4 -4,-2 -7,0 -6,-2 -3,2 0,3 0,2 -3,6 -3,3 -1,6 0,4 -2,2 -4,7 0,2 2,7 2,2 0,3 -1,3 0,1 -1,5 -1,0 0,2 -2,2 -3,4 -1,2 1,4 0,3 1,1 -3,4 -5,-1 -3,4 -4,0 -1,-1 -2,0 -6,-3 -2,1 -6,0 -3,-1 -3,1 -5,4 -3,2 0,2 -4,4 -3,3 -1,1 1,1 -2,2 2,3 1,4 -1,4 -1,2 0,1 2,4 2,2 1,4 4,3 2,0 4,4 -1,2 3,4 3,2 2,4 3,-1 5,-1 7,3 10,1 4,0 2,1 2,-2 1,-3 -2,-1 3,-3 7,-1 1,-2 7,-2 2,1 0,2 2,1 4,0 0,-1 4,-1 3,0 5,-1 2,1 3,0 5,-1 1,0 1,-3 -2,-4 -3,2 3,-5 3,-4 0,-2 3,-2 1,-7 2,-1 2,-4 3,-3 4,-4 0,-2 2,-2 5,1 5,1 4,1 0,-3 -3,-7 -2,-3 -4,-5 -7,-5 -3,-4 -2,-2 -3,-4|99,-25 2,-5 -2,-6 -5,-14 -3,-1 -3,1 -1,6 2,4 -1,5 1,3 4,0 2,3 4,4","AS":"216,43 -3,-2 -2,-3 4,-5 3,-2 1,-4 -1,-4 -4,-2 -4,-4 0,3 -1,1 -2,0 -2,3 -3,1 0,2 -2,0 0,-2 -2,-5 2,-2 1,-3 3,-3 3,-2 0,-4 1,-3 -1,-1 -4,4 -3,5 0,2 -3,4 0,3 1,3 -3,9 -1,2 -3,-3 -3,1 1,4 -4,5 -2,5 -2,0 0,-2 -3,0 0,-1 -4,0 -1,-3 -3,-1 -2,-2 -4,-3 0,-1 -3,-1 -1,-2 1,-4 -1,-2 0,-3 -5,-5 -2,2 -2,5 -1,2 -1,4 -2,3 -1,6 -1,5 -4,-1 -3,2 1,1 -3,2 -1,1 -2,3 -10,-1 -8,1 -2,3 -4,-1 -2,1 -4,2 -3,4 -3,0 -1,0 1,-3 1,-2 2,-2 2,-3 -1,1 2,1 0,-3 0,-1 5,0 4,4 1,-1 0,-1 2,-2 2,-1 3,-2 -3,-4 -1,0 0,-3 -3,-1 -2,-3 -5,-1 -2,-2 -5,-2 -2,-1 -6,-1 -1,-2 -3,0 -2,6 1,2 -4,6 -4,4 0,2 -1,2 -2,2 -1,1 -4,6 -1,0 1,3 -1,3 1,4 2,3 0,3 -3,2 -1,-2 -3,0 -4,1 -2,-1 -4,1 -2,3 1,2 -2,1 3,2 3,0 0,1 4,0 5,2 3,0 7,-2 4,0 2,1 0,2 -3,2 -7,3 3,2 0,2 2,2 1,0 1,3 -9,2 -3,4 -4,-1 -1,2 2,1 -3,3 0,1 -6,1 -1,3 0,2 1,2 2,1 -2,1 6,4 1,1 -3,1 1,1 -2,2 1,2 -2,2 2,1 -3,2 0,1 5,1 2,1 4,-1 5,-1 8,-2 1,-2 -5,-2 -9,2 -2,-1 4,-1 0,-3 4,-1 -1,2 1,0 5,-1 2,1 -1,1 4,2 4,-1 1,2 -2,1 1,1 -1,1 6,-1 1,-1 -3,0 2,-2 3,1 0,1 11,3 0,-2 8,1 3,1 2,-1 2,1 -2,1 1,1 6,-1 10,-3 1,1 -2,2 -2,0 1,1 -2,2 4,2 3,2 5,0 1,-2 -2,-1 2,-2 -1,-3 2,-1 -1,-2 -3,-2 2,-1 3,2 2,2 -1,1 1,1 -3,1 2,2 -3,2 4,1 -1,2 2,-1 0,-2 2,-1 -1,2 3,1 4,0 4,-2 -2,2 0,2 3,1 10,0 -2,1 2,1 7,1 5,1 6,0 1,0 5,1 4,0 2,2 5,0 3,0 -3,-1 7,-1 6,0 6,-1 0,-1 -9,-3 5,0 2,0 1,-1 4,1 7,-1 0,-1 8,0 1,1 7,0 3,-1 0,-2 2,-2 4,0 2,2 3,-1 3,0 4,0 5,0 -2,2 3,1 18,-2 2,-1 5,-1 8,0 4,0 2,-1 -1,-2 3,0 6,0 8,0 3,-2 3,1 -2,1 1,1 6,0 4,0 6,-1 -717,-1 11,-4 5,0 4,-2 -2,-1 -3,0 0,-2 -3,0 -4,1 0,1 -5,0 0,1 -3,0 0,-2 720,0 -3,-1 -2,0 4,-3 -1,-1 -3,0 -8,-2 -6,-2 0,-1 -3,1 -5,-1 -6,0 -3,-4 2,-1 0,-3 -2,0 0,-2 -3,-1 -1,-3 -3,0 -1,-2 -2,-2 -1,1 -2,8 1,3 2,2 3,0 7,5 3,1 2,3 -2,0 -2,-2 -5,-2 -1,3 -6,-1 -5,-3 2,-2 -7,0 0,1 -3,0 -3,-1 -6,1 -7,-1 -14,-9 3,0 3,-1 4,0 3,-2 0,-2 -2,-2 -1,-5 -4,-4 -6,-6 -3,-1 -2,1 -3,-3 -3,-1 0,-1 -4,-2 0,-2 2,-1 2,-3 -1,-4 -5,-1 0,2 -1,2 2,1 -2,1 -3,1 2,3 -2,1 -7,-2 2,3 -1,1 -4,-2 -1,-1 -3,-2 4,-3 3,2 3,-1 0,-1 -3,-1 -4,-3 2,-1 1,-2 3,-4 -1,-2 1,-1 -1,-4 -1,0 -5,-7 -5,-3 -4,-1 -2,-1 -4,-1 -2,-2 0,2 -4,0|282,-5 0,-13 -2,1 -5,0 2,2 -1,4 -6,2 -3,2 -1,-1 -2,2 3,2 -3,0 -3,2 4,1 3,-1 1,-4 2,-1 2,2 4,2 5,-2|250,-19 -3,-2 1,2 2,1 4,1 -4,-2|231,11 2,3 2,-2 3,-1 -2,-3 -1,-2 1,-2 2,-2 -2,0 -1,-4 -2,-1 -1,-5 -2,0 -3,2 -3,-1 -1,1 -3,0 0,3 -2,2 0,4 1,1 3,0 1,1 3,1 2,3 3,2|259,-6 1,-1 -4,0 0,1 3,0|254,-8 -2,2 2,0 0,-2|256,4 1,-1 0,-2 -1,0 0,-3 -1,4 1,2|246,2 4,1 -1,-2 -9,-1 0,-1 2,-2 1,1 4,1 -4,-3 2,-2 1,-5 -2,0 1,2 -2,-1 -1,3 0,2 -1,-1 0,-5 -2,0 0,4 -1,1 2,7 2,2 4,-1|241,-21 -3,2 2,0 1,-2|243,-17 3,1 0,-1 -3,0|237,-17 1,0 -5,-1 3,2 1,-1|217,-13 0,-1 4,0 1,1 3,-1 1,-1 3,-1 2,-1 -2,-1 -2,1 -4,0 -4,2 -2,-1 -6,2 1,2 5,-1|209,-2 1,-3 2,-1 0,-6 -3,0 -4,4 -2,2 -3,5 -1,1 -2,4 -6,6 0,1 4,-1 6,-6 2,0 5,-4 -1,-1 2,-1|188,162 4,1 4,-2 4,-1 0,-2 -4,0 -9,1 -2,1 -3,1 6,1|206,159 5,-2 -1,0 -11,-1 4,2 3,1|278,152 5,0 7,-1 -1,-1 -8,0 -3,-1 -4,2 1,1 3,0|296,151 5,-1 -2,-1 -7,1 1,1 3,0|280,147 4,1 3,-2 -7,1|90,161 10,1 3,-1 -8,-1 -1,1 -4,0|45,109 -6,0 4,1 3,0 -1,-1|107,148 5,1 -1,1 11,3 7,0 7,1 0,-2 -13,-1 -6,-2 -6,-4 0,-2 4,-2 -8,1 -4,1 0,1 2,2 4,1 -2,1|286,107 0,-3 3,-6 -3,1 -1,-3 2,-2 -3,-2 0,6 0,4 -1,2 0,3 3,0|-360,143 5,0 -5,-1 718,0 -1,0 -717,1|67,92 3,-1 3,-1 -5,-1 -1,1 -2,1 2,1|52,84 4,0 2,-2 -3,0 -2,-2 -1,2 0,2|164,15 -1,-2 -2,-1 -2,4 1,4 2,-1 2,-4|219,36 -2,1 1,3 4,0 -1,-3 -2,-1|244,49 -3,-5 -1,3 3,4 1,-2|242,25 -1,2 2,-1 -1,-1|245,20 1,2 2,0 0,-1 -2,-3 -1,2|253,17 -1,-4 0,2 -1,-4 -3,1 0,3 -1,1 -3,-2 1,2 2,1 1,-1 4,3 1,-2|237,19 -3,-2 4,4 1,2 0,-2 -2,-2|245,36 0,-2 -2,-2 0,-3 5,-1 0,-3 -2,2 -5,1 -1,2 1,7 4,-1|244,23 2,0 -2,-2 0,2|251,24 1,-2 -2,1 0,-3 -1,3 1,0 -1,2 2,-1|284,78 -2,-2 0,-4 -1,-2 -3,-1 -4,0 -2,-2 -2,2 -8,-1 2,-2 -1,-3 -3,0 1,2 -2,2 6,4 4,0 2,0 2,4 2,-1 4,2 1,3 1,3 2,1 1,-5|289,88 2,1 0,-2 -3,-1 -2,-2 -3,1 -1,-2 -2,0 0,2 1,2 2,0 1,4 2,-2 3,-1|265,67 3,2 2,-1 -4,-3 -1,2","OC":"356,-35 1,-1 -2,0 1,1|-360,-32 0,-1 719,-1 -2,1 3,1 -720,0|282,-5 7,-3 3,-3 3,-1 -1,-1 3,-5 5,-3 -6,1 -4,4 -3,1 -2,-1 0,-2 -2,-1 -3,1 0,13|305,-7 -4,2 1,0 3,-2|303,-12 -4,-1 -2,2 5,0 3,2 -1,-2 -1,-1|310,-11 2,-2 -1,-1 -1,3|332,-42 2,-2 -3,1 -3,2 1,1 3,-2|323,-19 -1,1 0,1 1,-2|354,-80 -2,-3 -3,0 1,2 -2,2 1,1 0,3 0,2 -4,4 4,-2 2,-3 4,-2 2,1 -1,-3 -2,0 0,-2|339,-87 3,2 2,3 2,1 0,-2 2,1 0,-2 -3,-3 1,-1 -3,0 -2,-4 -2,-1 -6,1 1,2 3,2 2,1|295,-82 2,0 0,-2 -1,-2 -4,-1 -3,5 0,1 4,-1 2,0|252,-64 -4,-2 -1,-2 -7,0 -4,-2 -3,0 -3,2 2,4 -2,5 -2,3 -1,5 1,-1 -1,3 1,5 1,0 4,3 2,0 7,2 2,3 2,3 1,-2 1,3 3,4 3,0 3,-2 2,0 0,1 2,4 4,1 0,2 6,-2 2,0 1,-1 -3,-4 8,-6 3,0 1,5 0,5 2,4 2,-5 1,-3 1,1 2,-2 0,-4 2,-4 5,-3 1,-4 2,0 1,-2 4,-4 0,-4 1,-1 -1,-7 -3,-3 -3,-7 0,-2 -3,-1 -4,-2 -3,1 -3,-1 -6,2 -2,4 -3,1 0,2 -2,-2 2,4 0,1 -3,-2 -1,-2 -4,4 1,1 -6,2 -4,0 -5,-2 -2,1"};
+
+const COLORS = {NA:'#E0479A', SA:'#F2DE3A', EU:'#4FC1E8', AF:'#0FA89C', AS:'#5DBB46', OC:'#5876C4'};
+const VERSE = 'FOR GOD SO LOVED THE WORLD THAT HE GAVE HIS ONLY SON THAT WHOEVER BELIEVES IN HIM SHOULD NOT PERISH BUT HAVE EVERLASTING LIFE  •  JOHN 3:16  •     ';
+const ACCENT = '#C2185B';
+let INK = '#1E2A44';  // follows the page theme so the verse stays readable in dark mode
+
+// ---- decode continents to unit vectors on the sphere ----
+const D2R = Math.PI / 180;
+const shapes = [];
+for (const k in GEO) {
+  for (const ring of GEO[k].split('|')) {
+    let x = 0, y = 0; const pts = [];
+    for (const pair of ring.split(' ')) {
+      const [dx, dy] = pair.split(',').map(Number); x += dx; y += dy;
+      const lon = x / 2 * D2R, lat = y / 2 * D2R;
+      pts.push([Math.cos(lat) * Math.sin(lon), Math.sin(lat), Math.cos(lat) * Math.cos(lon)]);
+    }
+    shapes.push({ color: COLORS[k], pts });
+  }
+}
+// graticule lines (every 30°)
+const grat = [];
+for (let lon = -180; lon < 180; lon += 30) { const l = []; for (let lat = -90; lat <= 90; lat += 3) l.push([lon, lat]); grat.push(l); }
+for (let lat = -60; lat <= 60; lat += 30) { const l = []; for (let lon = -180; lon <= 180; lon += 3) l.push([lon, lat]); grat.push(l); }
+const gratV = grat.map(l => l.map(([lo, la]) => [Math.cos(la*D2R)*Math.sin(lo*D2R), Math.sin(la*D2R), Math.cos(la*D2R)*Math.cos(lo*D2R)]));
+
+// ---- scene setup ----
+const cv = document.getElementById('logo');
+const ctx = cv.getContext('2d');
+const mini = document.getElementById('logo-mini'), mctx = mini.getContext('2d');
+const SIZE = 560, DPR = Math.min(window.devicePixelRatio || 1, 3);
+cv.width = SIZE * DPR; cv.height = SIZE * DPR;
+const CX = 280, CY = 280, R = 165;          // globe
+const RX = 262, RY = 70, TILT = -16 * D2R;  // Saturn-style ring (ellipse) and its tilt
+const AXIS = 20 * D2R;                       // viewer sits a little above the equator
+const GLOBE_PERIOD = 90;                    // seconds per globe turn
+const SCROLL_SPEED = 40;                     // px per second the verse travels along the ring
+const LETTER_STEP = 15;                      // px between letters along the ring
+const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function project(v, spin) {
+  // spin about the polar axis, then tip toward the viewer
+  const cs = Math.cos(spin), sn = Math.sin(spin);
+  const x = v[0] * cs + v[2] * sn, z0 = -v[0] * sn + v[2] * cs, y0 = v[1];
+  const y = y0 * Math.cos(AXIS) - z0 * Math.sin(AXIS);
+  const z = z0 * Math.cos(AXIS) + y0 * Math.sin(AXIS);
+  return [x, y, z];
+}
+
+function drawGlobe(spin) {
+  // soft floor shadow
+  const sh = ctx.createRadialGradient(CX, CY + R + 26, 4, CX, CY + R + 26, R * 0.9);
+  sh.addColorStop(0, 'rgba(11,35,64,0.18)'); sh.addColorStop(1, 'rgba(11,35,64,0)');
+  ctx.save(); ctx.translate(0, 0); ctx.scale(1, 0.12); ctx.fillStyle = sh;
+  ctx.beginPath(); ctx.arc(CX, (CY + R + 26) / 0.12, R * 0.9, 0, 7); ctx.restore();
+
+  // ocean
+  const oc = ctx.createRadialGradient(CX - R*0.3, CY - R*0.4, R*0.1, CX, CY, R*1.05);
+  oc.addColorStop(0, '#F2FAFE'); oc.addColorStop(0.6, '#CFE8F5'); oc.addColorStop(1, '#8FC1DE');
+  ctx.fillStyle = oc; ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.fill();
+
+  ctx.save(); ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.clip();
+
+  // graticule (front side only)
+  ctx.strokeStyle = 'rgba(255,255,255,0.75)'; ctx.lineWidth = 0.8;
+  for (const line of gratV) {
+    ctx.beginPath(); let pen = false;
+    for (const v of line) {
+      const [x, y, z] = project(v, spin);
+      if (z > 0) { const px = CX + x * R, py = CY - y * R; pen ? ctx.lineTo(px, py) : ctx.moveTo(px, py); pen = true; }
+      else pen = false;
+    }
+    ctx.stroke();
+  }
+
+  // continents: back-facing points are pulled onto the rim so shapes fold cleanly at the horizon
+  for (const s of shapes) {
+    let any = false; const pp = [];
+    for (const v of s.pts) {
+      let [x, y, z] = project(v, spin);
+      if (z > 0) any = true; else { const m = Math.hypot(x, y) || 1; x /= m; y /= m; }
+      pp.push([CX + x * R, CY - y * R]);
+    }
+    if (!any) continue;
+    ctx.fillStyle = s.color; ctx.beginPath();
+    pp.forEach(([px, py], i) => i ? ctx.lineTo(px, py) : ctx.moveTo(px, py));
+    ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+
+  // lighting: highlight top-left, shadow bottom-right
+  const lt = ctx.createRadialGradient(CX - R*0.35, CY - R*0.4, 0, CX - R*0.1, CY - R*0.1, R*1.25);
+  lt.addColorStop(0, 'rgba(255,255,255,0.55)'); lt.addColorStop(0.3, 'rgba(255,255,255,0)');
+  lt.addColorStop(0.72, 'rgba(11,35,64,0.06)'); lt.addColorStop(1, 'rgba(11,35,64,0.42)');
+  ctx.fillStyle = lt; ctx.beginPath(); ctx.arc(CX, CY, R, 0, Math.PI * 2); ctx.fill();
+}
+
+// ring geometry helpers
+function ringPoint(t) {
+  const ex = RX * Math.cos(t), ey = RY * Math.sin(t);
+  return [CX + ex * Math.cos(TILT) - ey * Math.sin(TILT), CY + ex * Math.sin(TILT) + ey * Math.cos(TILT)];
+}
+
+function drawBand(front) {
+  // translucent ribbon, half at a time (back half behind the globe, front half over it)
+  const a0 = front ? 0 : Math.PI, a1 = front ? Math.PI : Math.PI * 2;
+  ctx.save();
+  ctx.lineCap = 'butt';
+  ctx.strokeStyle = front ? 'rgba(194,24,91,0.10)' : 'rgba(194,24,91,0.05)';
+  ctx.lineWidth = 34;
+  ctx.beginPath(); ctx.ellipse(CX, CY, RX, RY, TILT, a0, a1); ctx.stroke();
+  ctx.strokeStyle = front ? 'rgba(194,24,91,0.45)' : 'rgba(194,24,91,0.18)';
+  ctx.lineWidth = 1.2;
+  for (const off of [-17, 17]) { ctx.beginPath(); ctx.ellipse(CX, CY, RX + off, RY + off * 0.27, TILT, a0, a1); ctx.stroke(); }
+  ctx.restore();
+}
+
+const chars = [...VERSE];
+// even letter spacing: map arc length around the ellipse back to its angle
+const SAMPLES = 2048, arcT = [0], arcS = [0];
+for (let i = 1; i <= SAMPLES; i++) {
+  const t0 = (i - 1) / SAMPLES * Math.PI * 2, t1 = i / SAMPLES * Math.PI * 2;
+  arcT.push(t1);
+  arcS.push(arcS[i - 1] + Math.hypot(RX * (Math.cos(t1) - Math.cos(t0)), RY * (Math.sin(t1) - Math.sin(t0))));
+}
+const ARC = arcS[SAMPLES];
+function angleAt(s) {
+  s = ((s % ARC) + ARC) % ARC;
+  let lo = 0, hi = SAMPLES;
+  while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (arcS[mid] < s) lo = mid; else hi = mid; }
+  const f = (s - arcS[lo]) / (arcS[hi] - arcS[lo] || 1);
+  return arcT[lo] + f * (arcT[hi] - arcT[lo]);
+}
+function drawVerse(phase, front) {
+  const n = chars.length, step = LETTER_STEP, TEXT = n * step;
+  // The verse is longer than the ring, so it streams around it like a marquee.
+  // Letters enter and leave at a seam hidden behind the globe (back-centre of the ring).
+  const seam = ARC * 0.75;
+  ctx.save();
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  let accent = false;
+  for (let i = 0; i < n; i++) {
+    const ch = chars[i];
+    if (ch === '•') accent = !accent;
+    const u = (((phase - i * step) % TEXT) + TEXT) % TEXT;
+    if (u > ARC - step * 0.5) continue;
+    const t = angleAt(seam + u);
+    const s = Math.sin(t);
+    if ((s >= 0) !== front) continue;
+    if (ch === ' ') continue;
+    const [px, py] = ringPoint(t);
+    const depth = (s + 1) / 2;                       // 0 = far, 1 = near
+    const size = 13 + 7 * depth;
+    // reading direction along the ring
+    const dx = RX * Math.sin(t), dy = -RY * Math.cos(t);
+    let ang = Math.atan2(dx * Math.sin(TILT) + dy * Math.cos(TILT), dx * Math.cos(TILT) - dy * Math.sin(TILT));
+    ctx.save();
+    ctx.translate(px, py);
+    if (front) { ctx.rotate(ang); }
+    else { ctx.rotate(ang + Math.PI); ctx.scale(-1, 1); }   // seen from behind: mirrored, faded
+    ctx.globalAlpha = front ? 1 : 0.28;
+    const isAccent = accent || ch === '•';
+    ctx.fillStyle = isAccent ? ACCENT : INK;
+    ctx.font = `700 ${size.toFixed(1)}px Arial, Helvetica, sans-serif`;
+    ctx.fillText(ch, 0, 0);
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+function frame(ms) {
+  const sec = reduce ? 0 : ms / 1000;
+  const spin = (sec / GLOBE_PERIOD) * Math.PI * 2 - 10 * D2R;  // starts facing Africa & Europe
+  const phase = ARC * 0.47 + sec * SCROLL_SPEED;  // opens with the start of the verse across the front
+  INK = getComputedStyle(document.documentElement).getPropertyValue('--logo-ink').trim() || '#1E2A44';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.clearRect(0, 0, SIZE, SIZE);
+  drawVerse(phase, false);
+  drawGlobe(spin);
+  drawVerse(phase, true);
+  // header mark: same globe, scaled down
+  mctx.clearRect(0, 0, mini.width, mini.height);
+  mctx.drawImage(cv, 0, 0, mini.width, mini.height);
+  if (!reduce) requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+
+</script>
+
+</body>
+</html>
